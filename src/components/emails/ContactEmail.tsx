@@ -1,4 +1,7 @@
 // src/components/emails/ContactEmail.tsx
+
+"use client"; // This is the fix we added at the very top.
+
 import * as React from 'react';
 import { Html, Head, Body, Container, Heading, Text, Section, Hr } from '@react-email/components';
 
