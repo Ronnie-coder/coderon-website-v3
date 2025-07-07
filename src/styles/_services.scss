@@ -1,0 +1,87 @@
+// src/styles/_services.scss
+
+@use 'variables' as *;
+
+.c-services {
+  // Add significant padding to give the section breathing room.
+  padding: $spacing-xxl $spacing-lg;
+  background-color: $color-background; // Re-affirm the background color for context
+  text-align: center;
+
+  &__heading {
+    margin-bottom: $spacing-sm;
+    color: $color-text-secondary;
+    font-weight: 500;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+
+  &__subheading {
+    font-size: 2.5rem;
+    font-weight: 600;
+    max-width: 600px;
+    margin: 0 auto $spacing-xl auto;
+    color: $color-text-primary;
+    
+    @media (max-width: 768px) {
+      font-size: 2rem;
+    }
+  }
+
+  &__grid {
+    display: grid;
+    // Creates a responsive grid. On large screens, up to 3 columns.
+    // On smaller screens, it will wrap to 2, then 1 column automatically.
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: $spacing-lg;
+    max-width: $container-max-width;
+    margin: 0 auto;
+  }
+}
+
+// Styling for the individual service cards.
+.c-service-card {
+  background-color: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $border-radius-md;
+  padding: $spacing-lg;
+  text-align: left;
+  
+  // A subtle transition for the hover effect.
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+
+  &:hover {
+    // Elevate the card on hover for a dynamic feel.
+    transform: translateY(-8px);
+    box-shadow: $box-shadow-dark;
+    border-color: $color-primary;
+  }
+
+  &__icon {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: $color-primary;
+    background-color: rgba($color-primary, 0.1);
+    height: 60px;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%; // Makes it a circle
+    margin-bottom: $spacing-lg;
+  }
+
+  &__title {
+    font-size: 1.5rem;
+    color: $color-text-primary;
+    margin-bottom: $spacing-sm;
+  }
+
+  &__description {
+    color: $color-text-secondary;
+    line-height: 1.7;
+    // Resetting the default paragraph margin for a tighter card layout.
+    margin-bottom: 0; 
+  }
+}

@@ -1,0 +1,96 @@
+// src/styles/_impact.scss
+
+@use 'variables' as *;
+
+.c-impact {
+  padding: $spacing-xxl $spacing-lg;
+  // Use a slightly different background to make the section stand out.
+  background-color: $color-surface; 
+}
+
+.c-impact-feature {
+  display: grid;
+  // A two-column grid, perfectly balanced.
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: $spacing-xl;
+  max-width: $container-max-width;
+  margin: 0 auto;
+
+  // On mobile, the grid collapses to a single column.
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.c-impact-feature__image-wrapper {
+  border-radius: $border-radius-md;
+  overflow: hidden; // Ensures the image respects the border-radius.
+  box-shadow: $box-shadow-dark;
+  
+  // A subtle hover effect to draw attention.
+  transition: transform 0.4s ease;
+  
+  &:hover {
+    transform: scale(1.03);
+  }
+
+  // Next.js Image component needs styling on the inner img tag.
+  img {
+    width: 100%;
+    height: auto;
+    display: block; // Removes any bottom spacing on the image.
+  }
+}
+
+.c-impact-feature__content {
+  // On mobile, the text will appear below the image.
+  @media (max-width: 900px) {
+    order: 2; // Puts the text after the image when columns collapse.
+    text-align: center;
+    margin-top: $spacing-lg;
+  }
+
+  h3 {
+    color: $color-primary; // Use the accent color for the client's name.
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: $spacing-sm;
+  }
+
+  h2 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: $color-text-primary;
+    margin-bottom: $spacing-md;
+     @media (max-width: 768px) {
+      font-size: 2rem;
+    }
+  }
+
+  p {
+    color: $color-text-secondary;
+    margin-bottom: $spacing-lg;
+  }
+
+  a {
+    // This is our "View Site" link. Let's give it a distinct style.
+    color: $color-text-primary;
+    font-weight: bold;
+    display: inline-block;
+    position: relative;
+    
+    // An animated arrow for a professional touch.
+    span {
+      margin-left: $spacing-sm;
+      transition: transform 0.3s ease;
+    }
+
+    &:hover {
+      color: $color-primary;
+      span {
+        transform: translateX(5px);
+      }
+    }
+  }
+}

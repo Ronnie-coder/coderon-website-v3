@@ -1,0 +1,59 @@
+// src/styles/_impact-page.scss
+@use 'variables' as *;
+
+.c-project-card {
+  background-color: $color-surface;
+  border-radius: $border-radius-md;
+  border: 1px solid $color-border;
+  overflow: hidden;
+  margin-bottom: $spacing-xl;
+  transition: box-shadow 0.3s ease;
+
+  &:hover {
+    box-shadow: $box-shadow-dark;
+  }
+}
+
+.c-project-card__image {
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+}
+
+.c-project-card__content {
+  padding: $spacing-lg;
+}
+
+.c-project-card__client {
+  color: $color-primary;
+  font-weight: 600;
+  margin-bottom: $spacing-sm;
+}
+
+.c-project-card__title {
+  font-size: 1.8rem;
+  color: $color-text-primary;
+}
+
+.c-project-card__description {
+  color: $color-text-secondary;
+  margin: $spacing-md 0 $spacing-lg 0;
+}
+
+.c-project-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-sm;
+  margin-bottom: $spacing-lg;
+}
+
+.c-project-card__tag {
+  background-color: rgba($color-primary, 0.1);
+  color: $color-primary;
+  padding: $spacing-xs $spacing-sm;
+  border-radius: $border-radius-sm;
+  font-size: 0.8rem;
+  font-weight: 500;
+}

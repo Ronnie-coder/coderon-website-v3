@@ -1,0 +1,66 @@
+// src/styles/_fleet-tracker.scss
+@use 'variables' as *;
+
+.c-tracker {
+  &__header {
+    text-align: center;
+    margin-bottom: $spacing-lg;
+  }
+
+  &__title {
+    font-size: 2rem;
+    color: $color-text-primary;
+  }
+  
+  &__subtitle {
+    color: $color-text-secondary;
+    margin-top: $spacing-sm;
+    font-size: 1.1rem;
+  }
+  
+  &__map-container {
+    height: 70vh; // Make the map nice and big
+    width: 100%;
+    background-color: #000; // Black background while map tiles load
+    border-radius: $border-radius-md;
+    border: 1px solid $color-border;
+    overflow: hidden; // Ensures rounded corners are respected
+  }
+}
+
+// Styles for the Leaflet map itself
+.leaflet-container {
+  // This is a dark theme for the map tiles from CartoDB
+  filter: invert(1) hue-rotate(180deg) brightness(0.9) contrast(0.9);
+}
+
+// Custom animated truck icon
+.truck-icon {
+  // A simple representation of a truck using CSS
+  background-color: $color-primary;
+  width: 20px;
+  height: 10px;
+  border-radius: 2px;
+  position: relative;
+  
+  // The "cab" of the truck
+  &::before {
+    content: '';
+    position: absolute;
+    right: -5px;
+    top: -3px;
+    width: 8px;
+    height: 8px;
+    background-color: $color-primary;
+    border-radius: 1px;
+  }
+
+  // A subtle pulse animation to show it's "live"
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba($color-primary, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba($color-primary, 0); }
+  100% { box-shadow: 0 0 0 0 rgba($color-primary, 0); }
+}

@@ -1,0 +1,123 @@
+// src/styles/_contact.scss
+
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.c-contact {
+  padding: $spacing-xxl $spacing-lg;
+  background-color: $color-background;
+
+  &__wrapper {
+    max-width: $container-max-width;
+    margin: 0 auto;
+    display: grid;
+    // Two-column layout, with the info part taking up a bit less space.
+    grid-template-columns: 1fr 1.5fr;
+    gap: $spacing-xl;
+
+    @media (max-width: 900px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__info {
+    h2 {
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: $color-text-primary;
+      margin-bottom: $spacing-md;
+    }
+    p {
+      color: $color-text-secondary;
+      margin-bottom: $spacing-lg;
+      line-height: 1.7;
+    }
+  }
+
+  &__details {
+    list-style: none;
+    padding: 0;
+    margin-bottom: $spacing-lg;
+    li {
+      color: $color-text-secondary;
+      margin-bottom: $spacing-md;
+      display: flex;
+      align-items: center;
+      span {
+        color: $color-primary;
+        margin-right: $spacing-md;
+        font-size: 1.2rem;
+      }
+    }
+  }
+
+  &__whatsapp-btn {
+    display: inline-flex;
+    align-items: center;
+    background-color: #25D366; // Official WhatsApp Green
+    color: #fff;
+    padding: $spacing-md $spacing-lg;
+    border-radius: $border-radius-md;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+
+    svg {
+      margin-right: $spacing-sm;
+      width: 24px;
+      height: 24px;
+    }
+
+    &:hover {
+      background-color: #1DAE54;
+      transform: translateY(-3px);
+      color: #fff; // Ensure color stays white on hover
+    }
+  }
+}
+
+// Styling for the form itself
+.c-form {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+
+  &__group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__label {
+    color: $color-text-secondary;
+    margin-bottom: $spacing-sm;
+    font-size: 0.9rem;
+  }
+
+  &__input, &__textarea {
+    background-color: $color-surface;
+    border: 1px solid $color-border;
+    border-radius: $border-radius-sm;
+    padding: $spacing-md;
+    color: $color-text-primary;
+    font-size: 1rem;
+    font-family: $font-primary;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+    &:focus {
+      outline: none;
+      border-color: $color-primary;
+      box-shadow: 0 0 0 3px rgba($color-primary, 0.2);
+    }
+  }
+
+  &__textarea {
+    resize: vertical;
+    min-height: 150px;
+  }
+
+  &__button {
+    @include cta-button; 
+    border: none;
+    cursor: pointer;
+    align-self: flex-start; // Button doesn't stretch full-width
+  }
+}

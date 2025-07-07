@@ -1,0 +1,65 @@
+// src/styles/_about-page.scss
+
+@use 'variables' as *;
+
+// These classes are already defined in _services-page.scss, so we can reuse them
+// for a consistent look across the site. No need to rewrite them!
+// .c-page-container
+// .c-page-header
+// .c-page-cta
+
+// Styles specifically for the main story section on the about page
+.c-about-content {
+  p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: $color-text-secondary;
+    margin-bottom: $spacing-lg;
+    max-width: 750px; // A comfortable reading width
+  }
+}
+
+// Section for our core values
+.c-values-section {
+  margin-top: $spacing-xl;
+  padding-top: $spacing-xl;
+  border-top: 1px solid $color-border;
+  
+  h2 {
+    text-align: center;
+    font-size: 2rem;
+    color: $color-text-primary;
+    margin-bottom: $spacing-lg;
+  }
+
+  // A responsive grid for the values
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: $spacing-lg;
+  }
+}
+
+// Styling for each individual value card
+.c-value-card {
+  h3 {
+    display: flex;
+    align-items: center;
+    font-size: 1.25rem;
+    color: $color-text-primary;
+    margin-bottom: $spacing-sm;
+
+    // The checkmark icon before the title
+    span {
+      color: $color-primary;
+      font-size: 1.5rem;
+      margin-right: $spacing-sm;
+    }
+  }
+  p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 0;
+    color: $color-text-secondary;
+  }
+}

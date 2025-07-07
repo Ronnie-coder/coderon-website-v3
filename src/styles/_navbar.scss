@@ -1,0 +1,105 @@
+// src/styles/_navbar.scss
+
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.c-navbar {
+  // Use a variable for the height for consistency.
+  height: $header-height;
+  width: 100%;
+  padding: 0 $spacing-lg;
+  
+  // Position it fixed at the top with a high z-index.
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+
+  // Glassmorphism effect: A modern, professional touch.
+  background-color: rgba($color-background, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); // For Safari
+
+  // A subtle border to separate it from the content below.
+  border-bottom: 1px solid $color-border;
+  
+  // Use flexbox for easy alignment.
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__container {
+    width: 100%;
+    max-width: $container-max-width;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: $color-text-primary;
+    text-decoration: none; // Ensure link is not underlined
+
+    // --- CHANGED: Flexbox for alignment ---
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm; // Space between logo and text
+
+    // --- NEW: Styling for the logo image ---
+    img {
+      height: 32px; // Adjust this value if needed
+      width: auto;
+    }
+
+    span {
+      color: $color-primary; // The dot is in the accent color.
+      display: inline-block; // Important for GSAP transforms
+    }
+  }
+
+  &__nav-links {
+    display: flex;
+    gap: $spacing-lg;
+    list-style: none;
+  }
+
+  &__link a {
+    color: $color-text-secondary;
+    font-weight: 500;
+    position: relative;
+    padding: $spacing-sm 0;
+
+    // A subtle animated underline for hover.
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: $color-primary;
+      transform: scaleX(0);
+      transform-origin: bottom right;
+      transition: transform 0.3s ease-out;
+    }
+
+    &:hover {
+      color: $color-text-primary;
+      &::after {
+        transform: scaleX(1);
+        transform-origin: bottom left;
+      }
+    }
+  }
+
+  &__cta {
+       @include cta-button;
+
+    &:hover {
+      background-color: $color-primary-hover;
+      transform: translateY(-2px);
+    }
+  }
+}

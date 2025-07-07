@@ -1,0 +1,109 @@
+// src/styles/_services-page.scss
+
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// General styling for a standard content page
+.c-page-container {
+  max-width: 900px; // A comfortable width for reading text
+  margin: 0 auto;
+  padding: $spacing-xl $spacing-lg;
+}
+
+// Header for the page
+.c-page-header {
+  text-align: center;
+  margin-bottom: $spacing-xl;
+  padding-bottom: $spacing-lg;
+  border-bottom: 1px solid $color-border;
+  
+  h1 {
+    font-size: 3rem;
+    color: $color-text-primary;
+    margin-bottom: $spacing-sm;
+    @media (max-width: 768px) {
+      font-size: 2.5rem;
+    }
+  }
+  p {
+    font-size: 1.2rem;
+    color: $color-text-secondary;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+// Container for a single service item
+.c-service-item {
+  // Add space between each service block
+  margin-bottom: $spacing-xl;
+  padding-bottom: $spacing-xl;
+  border-bottom: 1px solid $color-border;
+  
+  &:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+  
+  &__title {
+    font-size: 2rem;
+    color: $color-primary; // Use accent color for service titles
+    margin-bottom: $spacing-md;
+  }
+
+  &__description {
+    color: $color-text-secondary;
+    margin-bottom: $spacing-lg;
+    line-height: 1.7;
+  }
+
+  &__benefits-list {
+    list-style: none;
+    padding-left: 0;
+    display: grid;
+    // Responsive grid for the benefits
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: $spacing-md;
+  }
+
+  &__benefit {
+    display: flex;
+    align-items: flex-start;
+    color: $color-text-primary;
+    
+    // The checkmark icon
+    &::before {
+      content: '✓';
+      color: $color-primary;
+      font-weight: bold;
+      margin-right: $spacing-sm;
+      margin-top: -2px; // Minor alignment tweak
+    }
+  }
+}
+
+// Final CTA section at the bottom of the page
+.c-page-cta {
+  text-align: center;
+  margin-top: $spacing-xl;
+  padding: $spacing-xl;
+  background-color: $color-surface;
+  border-radius: $border-radius-md;
+  
+  h2 {
+    font-size: 2rem;
+    color: $color-text-primary;
+  }
+
+  p {
+    color: $color-text-secondary;
+    margin: $spacing-sm auto $spacing-lg auto;
+    max-width: 500px;
+  }
+
+  .cta-button {
+    @include cta-button;
+  }
+}

@@ -1,0 +1,61 @@
+// src/styles/_hero.scss
+
+@use 'variables' as *;
+
+.c-hero {
+  // Make the hero section take up the full viewport height minus the navbar.
+  min-height: calc(100vh - #{$header-height});
+  width: 100%;
+  
+  // Center the content vertically and horizontally using flexbox.
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  // Use the main container to constrain the content width.
+  // This is a nested .container, specific to the hero's text content.
+  &__container {
+    text-align: center;
+    max-width: 900px; // A bit narrower for more impactful text lines.
+    padding: $spacing-xl 0;
+  }
+
+  &__headline {
+    font-size: 4rem; // Large, impactful headline.
+    font-weight: 700;
+    color: $color-text-primary;
+    line-height: 1.1;
+    margin-bottom: $spacing-md;
+
+    // The accent color for key parts of the headline.
+    span {
+      color: $color-primary;
+    }
+
+    // Responsive typography for smaller screens.
+    @media (max-width: 768px) {
+      font-size: 3rem;
+    }
+    @media (max-width: 480px) {
+      font-size: 2.5rem;
+    }
+  }
+
+  &__subheadline {
+    font-size: 1.25rem;
+    color: $color-text-secondary;
+    max-width: 700px;
+    margin: 0 auto $spacing-lg auto; // Center the paragraph block.
+    
+    @media (max-width: 768px) {
+      font-size: 1.1rem;
+    }
+  }
+
+  &__cta-group {
+    display: flex;
+    justify-content: center;
+    gap: $spacing-md;
+    margin-top: $spacing-lg;
+  }
+}

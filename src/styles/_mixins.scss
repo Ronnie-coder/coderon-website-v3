@@ -1,0 +1,26 @@
+// src/styles/_mixins.scss
+
+@use 'variables' as *;
+
+// =============================================
+// CODERON - V3.0 - REUSABLE MIXINS
+// =============================================
+
+// -- MIXIN FOR PRIMARY CALL-TO-ACTION BUTTON --
+// This allows us to reuse the button style anywhere without duplicating code.
+@mixin cta-button {
+  display: inline-block; // Use inline-block or inline-flex
+  background-color: $color-primary;
+  color: $color-background;
+  padding: $spacing-sm $spacing-md;
+  border-radius: $border-radius-sm;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+
+  &:hover {
+    background-color: $color-primary-hover;
+    transform: translateY(-2px);
+    color: $color-background; // Ensure text color remains on hover
+  }
+}
