@@ -17,7 +17,7 @@ export async function POST(request: Request) {
       from: 'Coderon Website <onboarding@resend.dev>', // Required by Resend's free tier
       to: ['coderonc@gmail.com'], // YOUR email address here
       subject: `New Inquiry: ${service} for ${name}`,
-      reply_to: email, // This allows you to just hit "Reply" to contact the client
+      replyTo: email, // This allows you to just hit "Reply" to contact the client
       react: ContactEmail({ name, email, service, message }),
     });
 
