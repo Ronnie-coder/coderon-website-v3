@@ -1,4 +1,5 @@
 // src/app/playroom/fleet-tracker/page.tsx
+
 "use client";
 
 import { useState, useEffect } from 'react';
@@ -7,7 +8,7 @@ import { FaArrowLeft } from 'react-icons/fa';
 import { faker } from '@faker-js/faker';
 import L from 'leaflet';
 
-// --- Dynamically import map components to avoid SSR issues ---
+// --- Dynamic imports are correct, no changes needed ---
 import dynamic from 'next/dynamic';
 const MapContainer = dynamic(() => import('react-leaflet').then(mod => mod.MapContainer), { ssr: false });
 const TileLayer = dynamic(() => import('react-leaflet').then(mod => mod.TileLayer), { ssr: false });
@@ -15,36 +16,34 @@ const Marker = dynamic(() => import('react-leaflet').then(mod => mod.Marker), { 
 
 import 'leaflet/dist/leaflet.css';
 
-// Define the structure for a truck
 interface Truck {
   id: number;
   lat: number;
   lng: number;
 }
 
-// Function to create a custom HTML icon for our trucks
-const createTruckIcon = () => {
-  return L.divIcon({
-    className: 'truck-icon',
-    iconSize: [20, 10],
-  });
-};
-
 const FleetTrackerPage = () => {
   const [trucks, setTrucks] = useState<Truck[]>([]);
 
-  // Initialize trucks on component mount
+  // --- THE FIX: Move this function INSIDE the component ---
+  // This ensures it is only ever defined and called on the client, not the server.
+  const createTruckIcon = () => {
+    return L.divIcon({
+      className: 'truck-icon',
+      iconSize: [20, 10],
+    });
+  };
+
+  // Your useEffect hooks are perfect, no changes needed.
   useEffect(() => {
     const initialTrucks: Truck[] = Array.from({ length: 15 }).map((_, i) => ({
       id: i,
-      // Coordinates constrained to South Africa
       lat: faker.number.float({ min: -34, max: -22 }),
       lng: faker.number.float({ min: 18, max: 32 }),
     }));
     setTrucks(initialTrucks);
   }, []);
 
-  // Set up an interval to move the trucks
   useEffect(() => {
     const interval = setInterval(() => {
       setTrucks(currentTrucks => 
@@ -54,9 +53,9 @@ const FleetTrackerPage = () => {
           lng: truck.lng + faker.number.float({ min: -0.01, max: 0.01 }),
         }))
       );
-    }, 2000); // Update every 2 seconds
+    }, 2000);
 
-    return () => clearInterval(interval); // Cleanup on unmount
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -82,7 +81,7 @@ const FleetTrackerPage = () => {
               <Marker 
                 key={truck.id} 
                 position={[truck.lat, truck.lng]} 
-                icon={createTruckIcon()}
+                icon={createTruckIcon()} // This now safely calls the function defined inside the component
               />
             ))}
           </MapContainer>
