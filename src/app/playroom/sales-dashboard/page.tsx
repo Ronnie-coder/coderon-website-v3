@@ -43,7 +43,7 @@ const SalesDashboardPage = () => {
       stats: {
         totalRevenue: `R ${totalRevenue.toLocaleString()}`,
         newCustomers: faker.number.int({ min: 80, max: 250 }).toString(),
-        salesGrowth: `${faker.number.float({ min: 2.5, max: 15, precision: 0.1 })}%`,
+        salesGrowth: `${faker.number.float({ min: 2.5, max: 15, fractionDigits: 1 })}%`,
       },
       revenueData: {
         labels,
