@@ -2,6 +2,8 @@
 @use 'mixins' as *;
 
 .c-navbar {
+  // This is the main fix: The header itself is just a positional block.
+  // It is NOT a flex container. This stops the conflict.
   height: $header-height;
   width: 100%;
   padding: 0 $spacing-lg;
@@ -13,15 +15,21 @@
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid $color-border;
+  
+  // --- REMOVED ---
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
 
+  // The container INSIDE the header handles the flexbox alignment.
   &__container {
     width: 100%;
     max-width: $container-max-width;
-    height: 100%;
+    height: 100%; // Make container fill the header height
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 0 auto;
+    margin: 0 auto; // Center the container
   }
 
   &__logo {
@@ -32,7 +40,7 @@
     display: flex;
     align-items: center;
     gap: $spacing-sm;
-    z-index: 1002;
+    z-index: 1002; // Ensure logo is above mobile nav when it slides in
 
     img {
       height: 32px;
@@ -44,15 +52,11 @@
     }
   }
 
-  // --- THIS IS THE CRITICAL FIX ---
-  // This rule targets the new container for all desktop items.
-  &__desktop-items {
-    display: none; // Hide the entire container on mobile.
-
+  // --- HIDE DESKTOP NAV ON SMALLER SCREENS ---
+  &__desktop-nav, &__desktop-cta {
+    display: none;
     @media (min-width: 992px) {
-      display: flex; // Show it on desktop...
-      align-items: center; // ...and align its contents.
-      gap: 2rem;
+      display: flex;
     }
   }
 
@@ -67,18 +71,38 @@
     font-weight: 500;
     position: relative;
     padding: $spacing-sm 0;
-    &::after { /* Your underline animation styles */ }
-    &:hover { /* Your underline animation styles */ }
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: $color-primary;
+      transform: scaleX(0);
+      transform-origin: bottom right;
+      transition: transform 0.3s ease-out;
+    }
+    &:hover {
+      color: $color-text-primary;
+      &::after {
+        transform: scaleX(1);
+        transform-origin: bottom left;
+      }
+    }
   }
 
   &__cta {
     @include cta-button;
-    &:hover { /* Your hover styles */ }
+    &:hover {
+      background-color: $color-primary-hover;
+      transform: translateY(-2px);
+    }
   }
 
-  // --- MOBILE MENU STYLES (Unchanged, but will now work correctly) ---
+  // --- MOBILE MENU STYLES (These are now free of conflict) ---
   &__mobile-toggle {
-    display: block;
+    display: block; 
     background: none;
     border: none;
     color: $color-text-primary;
@@ -97,7 +121,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(10, 10, 10, 0.98);
+    background-color: rgba(10, 10, 10, 0.98); // Darker background for the overlay
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -106,15 +130,20 @@
     gap: 2.5rem;
     padding: 0;
     margin: 0;
-    transform: translateX(100%);
+    transform: translateX(100%); // Start hidden off-screen to the right
     transition: transform 0.3s ease-in-out;
     z-index: 1001;
 
     &.is-open {
-      transform: translateX(0);
+      transform: translateX(0); // Slide into view when the 'is-open' class is added
     }
 
-    .c-navbar__link a { font-size: 1.5rem; }
-    .c-navbar__cta { font-size: 1.2rem; padding: 0.8rem 1.6rem; }
+    .c-navbar__link a {
+      font-size: 1.5rem; 
+    }
+    .c-navbar__cta {
+      font-size: 1.2rem; 
+      padding: 0.8rem 1.6rem;
+    }
   }
 }
