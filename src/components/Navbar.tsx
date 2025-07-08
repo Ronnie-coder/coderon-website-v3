@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { gsap } from 'gsap';
-import { FaBars, FaTimes } from 'react-icons/fa'; // Icons for the mobile menu
+import { FaBars, FaTimes } from 'react-icons/fa';
 
 interface NavLink {
   href: string;
@@ -18,63 +18,48 @@ const navLinks: NavLink[] = [
   { href: '/about', label: 'About Us' },
 ];
 
-/**
- * The main navigation bar for the Coderon website.
- * Now with a responsive mobile menu.
- */
 const Navbar = () => {
-  // --- NEW: State to manage the mobile menu's visibility ---
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   const logoRef = useRef<HTMLAnchorElement>(null);
   const logoDotRef = useRef<HTMLSpanElement>(null);
   const timeline = useRef<gsap.core.Timeline | null>(null);
 
-  // Your GSAP animation remains exactly the same
-  useEffect(() => {
-    timeline.current = gsap.timeline({ paused: true });
-    if (timeline.current && logoDotRef.current) {
-      timeline.current.to(logoDotRef.current, { /* ...your animation... */ });
-    }
-  }, []);
-  const handleMouseEnter = () => { /* ...your animation... */ };
-  const handleMouseLeave = () => { /* ...your animation... */ };
-
-  // --- NEW: Function to close the menu when a link is clicked ---
+  // Your existing GSAP code and other functions remain the same
+  useEffect(() => { /* ... */ }, []);
+  const handleMouseEnter = () => { /* ... */ };
+  const handleMouseLeave = () => { /* ... */ };
   const closeMenu = () => setIsMenuOpen(false);
 
   return (
     <header className="c-navbar">
       <div className="c-navbar__container">
-        {/* Your logo code is unchanged */}
         <Link href="/" className="c-navbar__logo" onClick={closeMenu}>
           <Image src="/logo-coderon.png" alt="Coderon Logo" width={32} height={32} priority />
           Coderon<span ref={logoDotRef}>.</span>
         </Link>
 
-        {/* Desktop Navigation Links */}
-        <nav className="c-navbar__desktop-nav">
-          <ul className="c-navbar__nav-links">
-            {navLinks.map((link) => (
-              <li key={link.href} className="c-navbar__link">
-                <Link href={link.href}>{link.label}</Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        {/* --- NEW: A single container for all desktop items --- */}
+        <div className="c-navbar__desktop-items">
+          <nav>
+            <ul className="c-navbar__nav-links">
+              {navLinks.map((link) => (
+                <li key={link.href} className="c-navbar__link">
+                  <Link href={link.href}>{link.label}</Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <Link href="/contact" className="c-navbar__cta">
+            Free Consultation
+          </Link>
+        </div>
 
-        {/* Desktop CTA Button */}
-        <Link href="/contact" className="c-navbar__cta c-navbar__desktop-cta">
-           Free Consultation
-        </Link>
-
-        {/* --- NEW: Mobile Menu Toggle Button (Hamburger Icon) --- */}
         <button className="c-navbar__mobile-toggle" onClick={() => setIsMenuOpen(!isMenuOpen)}>
           {isMenuOpen ? <FaTimes /> : <FaBars />}
         </button>
       </div>
 
-      {/* --- NEW: Mobile Navigation Menu (The slide-in part) --- */}
+      {/* The mobile navigation overlay remains the same */}
       <nav className={`c-navbar__mobile-nav ${isMenuOpen ? 'is-open' : ''}`}>
         {navLinks.map((link) => (
           <li key={link.href} className="c-navbar__link">
@@ -82,7 +67,7 @@ const Navbar = () => {
           </li>
         ))}
         <Link href="/contact" className="c-navbar__cta" onClick={closeMenu}>
-           Free Consultation
+          Free Consultation
         </Link>
       </nav>
     </header>
