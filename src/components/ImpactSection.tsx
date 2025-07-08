@@ -1,8 +1,8 @@
-// src/components/ImpactSection.tsx
 "use client";
 
 import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+// FIX: Imported 'Variants' type
+import { motion, useInView, Variants } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -15,7 +15,8 @@ const ImpactSection = () => {
   const isInView = useInView(ref, { once: true, amount: 0.3 });
 
   // Animation variants for the entire feature block to slide in from the side.
-  const featureVariants = {
+  // FIX: Added the ': Variants' type annotation to resolve the build error.
+  const featureVariants: Variants = {
     hidden: { opacity: 0, x: -50 }, // Starts off-screen to the left
     visible: {
       opacity: 1,

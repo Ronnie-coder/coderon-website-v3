@@ -1,4 +1,3 @@
-// src/components/ContactSection.tsx
 "use client";
 
 import { useState } from 'react';
@@ -7,6 +6,7 @@ const ContactSection = () => {
   const [formData, setFormData] = useState({ name: '', email: '', service: 'Web Development', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formMessage, setFormMessage] = useState('');
+  const [isError, setIsError] = useState(false); // To track message type
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -14,7 +14,10 @@ const ContactSection = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault(); setIsSubmitting(true); setFormMessage('');
+    e.preventDefault(); 
+    setIsSubmitting(true); 
+    setFormMessage('');
+    setIsError(false);
     try {
       const response = await fetch('/api/send', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(formData) });
       if (response.ok) {
@@ -23,9 +26,11 @@ const ContactSection = () => {
       } else {
         const errorData = await response.json();
         setFormMessage(`Error: ${errorData.error?.message || 'Something went wrong. Please try again.'}`);
+        setIsError(true);
       }
     } catch (error) {
       setFormMessage("An unexpected error occurred. Please check your connection and try again.");
+      setIsError(true);
     } finally {
       setIsSubmitting(false);
     }
@@ -41,7 +46,6 @@ const ContactSection = () => {
             <li><span>📍</span> Based in South Africa, Serving all of Africa.</li>
             <li><span>🕒</span> Business Hours: Mon - Fri, 9:00 - 17:00 (SAST)</li>
           </ul>
-          {/* --- UPDATED WHATSAPP LINK --- */}
           <a href="https://wa.me/27678184898" target="_blank" rel="noopener noreferrer" className="c-contact__whatsapp-btn">
             Chat on WhatsApp
           </a>
@@ -67,7 +71,12 @@ const ContactSection = () => {
             <textarea id="message" name="message" className="c-form__textarea" required value={formData.message} onChange={handleChange} disabled={isSubmitting} />
           </div>
           <button type="submit" className="c-form__button" disabled={isSubmitting}>{isSubmitting ? 'Sending...' : 'Send Message'}</button>
-          {formMessage && <p style={{ marginTop: '1rem', color: formMessage.startsWith('Error') ? '#ff4d4d' : '#25D366' }}>{formMessage}</p>}
+          {/* FIX: Replaced inline style with a dynamic className */}
+          {formMessage && (
+            <p className={`c-form__message ${isError ? 'c-form__message--error' : 'c-form__message--success'}`}>
+              {formMessage}
+            </p>
+          )}
         </form>
       </div>
     </section>

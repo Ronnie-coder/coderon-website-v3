@@ -1,8 +1,8 @@
-// src/components/ServicesShowcase.tsx
 "use client"; // This component uses hooks for animation, so it must be a client component.
 
 import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+// FIX: Imported 'Variants' type
+import { motion, useInView, Variants } from 'framer-motion';
 import { services, Service } from '@/data/servicesData';
 
 /**
@@ -19,7 +19,8 @@ const ServicesShowcase = () => {
 
   // Animation variants for the grid container.
   // `staggerChildren` creates a beautiful cascade effect for the cards.
-  const gridVariants = {
+  // FIX: Added the ': Variants' type annotation.
+  const gridVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -30,7 +31,8 @@ const ServicesShowcase = () => {
   };
 
   // Animation variants for each individual service card.
-  const cardVariants = {
+  // FIX: Added the ': Variants' type annotation to resolve the build error.
+  const cardVariants: Variants = {
     hidden: { opacity: 0, y: 50 },
     visible: {
       opacity: 1,

@@ -1,7 +1,6 @@
-// src/components/Hero.tsx
 "use client"; // This is a Client Component because it uses hooks (for animation).
 
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import Link from 'next/link';
 
 /**
@@ -9,8 +8,9 @@ import Link from 'next/link';
  * It features the primary headline and calls-to-action with entrance animations.
  */
 const Hero = () => {
-  // Animation variants for the container. `staggerChildren` creates a cascade effect.
-  const containerVariants = {
+  // FIX 1: Renamed this from 'itemVariants' to 'containerVariants'.
+  // This object controls the container and orchestrates the children's animations.
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -20,8 +20,9 @@ const Hero = () => {
     },
   };
 
-  // Animation variants for child elements (fade in from below).
-  const itemVariants = {
+  // FIX 2: This is the correct 'itemVariants' for the children.
+  // We've also added the ': Variants' type to it, which was our original fix.
+  const itemVariants: Variants = {
     hidden: { y: 20, opacity: 0 },
     visible: {
       y: 0,
@@ -38,7 +39,7 @@ const Hero = () => {
       {/* The `motion.div` component is the entry point for the animation */}
       <motion.div
         className="c-hero__container"
-        variants={containerVariants}
+        variants={containerVariants} // FIX 3: This now correctly points to 'containerVariants'
         initial="hidden" // Start in the "hidden" state
         animate="visible" // Animate to the "visible" state
       >

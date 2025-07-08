@@ -10,8 +10,8 @@
 
 # Next.js build output
 # This is the line that solves the SWC and ".next should not be uploaded" warnings
-/.next/
-/out/
+# Next.js
+.next
 
 # Production
 /build

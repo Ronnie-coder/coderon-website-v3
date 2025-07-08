@@ -1,5 +1,3 @@
-// src/styles/_navbar.scss
-
 @use 'variables' as *;
 @use 'mixins' as *;
 
@@ -8,7 +6,7 @@
   height: $header-height;
   width: 100%;
   padding: 0 $spacing-lg;
-  
+
   // Position it fixed at the top with a high z-index.
   position: fixed;
   top: 0;
@@ -16,13 +14,14 @@
   z-index: 1000;
 
   // Glassmorphism effect: A modern, professional touch.
+  // FIX: Swapped the order of the next two lines for correct prefix ordering.
+  -webkit-backdrop-filter: blur(10px); // For Safari
   background-color: rgba($color-background, 0.8);
   backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px); // For Safari
 
   // A subtle border to separate it from the content below.
   border-bottom: 1px solid $color-border;
-  
+
   // Use flexbox for easy alignment.
   display: flex;
   align-items: center;
@@ -95,7 +94,7 @@
   }
 
   &__cta {
-       @include cta-button;
+    @include cta-button;
 
     &:hover {
       background-color: $color-primary-hover;
