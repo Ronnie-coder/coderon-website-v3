@@ -2,27 +2,17 @@
 @use 'mixins' as *;
 
 .c-navbar {
-  // Use a variable for the height for consistency.
   height: $header-height;
   width: 100%;
   padding: 0 $spacing-lg;
-
-  // Position it fixed at the top with a high z-index.
   position: fixed;
   top: 0;
   left: 0;
   z-index: 1000;
-
-  // Glassmorphism effect: A modern, professional touch.
-  // FIX: Swapped the order of the next two lines for correct prefix ordering.
-  -webkit-backdrop-filter: blur(10px); // For Safari
+  -webkit-backdrop-filter: blur(10px);
   background-color: rgba($color-background, 0.8);
   backdrop-filter: blur(10px);
-
-  // A subtle border to separate it from the content below.
   border-bottom: 1px solid $color-border;
-
-  // Use flexbox for easy alignment.
   display: flex;
   align-items: center;
   justify-content: center;
@@ -39,22 +29,27 @@
     font-size: 1.5rem;
     font-weight: bold;
     color: $color-text-primary;
-    text-decoration: none; // Ensure link is not underlined
-
-    // --- CHANGED: Flexbox for alignment ---
+    text-decoration: none;
     display: flex;
     align-items: center;
-    gap: $spacing-sm; // Space between logo and text
+    gap: $spacing-sm;
+    z-index: 1002; // Ensure logo is above mobile nav
 
-    // --- NEW: Styling for the logo image ---
     img {
-      height: 32px; // Adjust this value if needed
+      height: 32px;
       width: auto;
     }
-
     span {
-      color: $color-primary; // The dot is in the accent color.
-      display: inline-block; // Important for GSAP transforms
+      color: $color-primary;
+      display: inline-block;
+    }
+  }
+
+  // --- MODIFIED: HIDE DESKTOP NAV ON SMALLER SCREENS ---
+  &__desktop-nav, &__desktop-cta {
+    display: none; // Hide by default (mobile-first)
+    @media (min-width: 992px) {
+      display: flex; // Show on screens 992px and wider
     }
   }
 
@@ -69,8 +64,6 @@
     font-weight: 500;
     position: relative;
     padding: $spacing-sm 0;
-
-    // A subtle animated underline for hover.
     &::after {
       content: '';
       position: absolute;
@@ -83,7 +76,6 @@
       transform-origin: bottom right;
       transition: transform 0.3s ease-out;
     }
-
     &:hover {
       color: $color-text-primary;
       &::after {
@@ -95,10 +87,56 @@
 
   &__cta {
     @include cta-button;
-
     &:hover {
       background-color: $color-primary-hover;
       transform: translateY(-2px);
+    }
+  }
+
+  // --- NEW STYLES FOR MOBILE MENU ---
+  &__mobile-toggle {
+    display: block; // Show by default
+    background: none;
+    border: none;
+    color: $color-text-primary;
+    font-size: 1.75rem;
+    cursor: pointer;
+    z-index: 1002; // Must be on top of the mobile nav background
+
+    @media (min-width: 992px) {
+      display: none; // Hide on desktop
+    }
+  }
+
+  &__mobile-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba($color-background, 0.98);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    gap: 2.5rem;
+    padding: 0;
+    margin: 0;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 1001;
+
+    &.is-open {
+      transform: translateX(0);
+    }
+
+    .c-navbar__link a {
+      font-size: 1.5rem; // Make links bigger for mobile
+    }
+    .c-navbar__cta {
+      font-size: 1.2rem; // Make CTA bigger for mobile
+      padding: 0.8rem 1.6rem;
     }
   }
 }
