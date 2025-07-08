@@ -6,8 +6,9 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: '/private/', // Example: if you had a private admin area
+      // No need for a 'disallow' rule since the entire site is public
     },
-    sitemap: 'https://www.coderon.co.za/sitemap.xml', // IMPORTANT: Change to your domain
+    // The sitemap URL must be the absolute URL to the final domain
+    sitemap: 'https://www.coderon.co.za/sitemap.xml',
   };
 }

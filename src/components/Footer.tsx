@@ -2,81 +2,58 @@
 
 "use client";
 
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
-import { useState, useEffect } from 'react';
-import { FaLinkedin, FaTwitter, FaWhatsapp } from 'react-icons/fa';
+// UPDATED: Removed FaEnvelope
+import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
 
-/**
- * The website footer. Contains copyright, social links, and a live clock.
- */
 const Footer = () => {
-  const currentYear = new Date().getFullYear();
-  const [time, setTime] = useState(new Date());
+  const [currentTime, setCurrentTime] = useState('');
 
   useEffect(() => {
+    // Safely sets the time only on the client-side to prevent hydration errors.
     const timer = setInterval(() => {
-      setTime(new Date());
+      // Using a clear format, e.g., Johannesburg (SAST)
+      setCurrentTime(new Date().toLocaleTimeString('en-ZA', { timeZone: 'Africa/Johannesburg', hour: '2-digit', minute: '2-digit' }));
     }, 1000);
 
-    return () => {
-      clearInterval(timer);
-    };
+    return () => clearInterval(timer);
   }, []);
 
-  const formatTime = (date: Date) => {
-    return date.toLocaleTimeString('en-GB', {
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-    });
-  };
+  const currentYear = new Date().getFullYear();
 
   return (
     <footer className="c-footer">
-      <div className="c-footer__container">
-        {/* Left Side: Text and Badge */}
-        <div className="c-footer__left-content">
-          <p className="c-footer__text">
-            &copy; {currentYear} <Link href="/">Coderon</Link>. All Rights Reserved. Built with Purpose in South Africa.
-          </p>
-          <p className="c-footer__legal">
-            CODERON (PTY) LTD (2025/482790/07)
-          </p>
-           <div className="c-footer__badge-wrapper">
-            <Image
-              src="/registration-badge.png"
-              alt="Official Company Registration Verification Badge"
-              width={150}
-              height={50}
-              quality={80}
-            />
-          </div>
+      <div className="c-footer__content">
+        {/* Row 1: Social Media Icons */}
+        <div className="c-footer__social">
+          <a href="https://github.com/Ronnie-coder" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+            <FaGithub />
+          </a>
+          <a href="https://www.linkedin.com/in/coderon-coderon-8b302b360" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <FaLinkedin />
+          </a>
+          <a href="https://x.com/Coderon28" target="_blank" rel="noopener noreferrer" aria-label="X (formerly Twitter)">
+            <FaTwitter />
+          </a>
         </div>
 
-        {/* Right Side: Clock and Socials */}
-        <div className="c-footer__right-content">
+        {/* Row 2: Legal Links */}
+        <div className="c-footer__links">
+          <Link href="/privacy-policy">Privacy Policy</Link>
+          <Link href="/terms-of-service">Terms of Service</Link>
+        </div>
 
-          {/* --- CHANGED: The Clock now comes FIRST in the code --- */}
-          {/* This moves it to the left, away from the BackToTopButton */}
-          <div className="c-footer__clock" aria-label="Current time">
-            {formatTime(time)}
+        {/* Row 3: Copyright, Registration, and Clock */}
+        <div className="c-footer__bottom-bar">
+          <div className="c-footer__legal-info">
+            <span>&copy; {currentYear} Coderon.</span>
+            {/* ADDED: Company Registration Number */}
+            <span>Reg: 2025 / 482790 / 07</span>
           </div>
-          
-          {/* --- CHANGED: The Socials now come SECOND in the code --- */}
-          {/* This places them on the far right, which looks great */}
-          <div className="c-footer__socials">
-            <a href="https://twitter.com/your-profile" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
-              <FaTwitter />
-            </a>
-            <a href="https://linkedin.com/in/your-profile" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-              <FaLinkedin />
-            </a>
-            <a href="https://wa.me/27000000000" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
-              <FaWhatsapp />
-            </a>
+          <div className="c-footer__clock" aria-label="Current time in Johannesburg">
+            {currentTime} SAST
           </div>
-
         </div>
       </div>
     </footer>

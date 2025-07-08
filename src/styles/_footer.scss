@@ -1,4 +1,4 @@
-// src/styles/_footer.scss
+// src/styles/components/_footer.scss
 
 @use 'variables' as *;
 @use 'mixins' as *;
@@ -7,73 +7,22 @@
   padding: $spacing-md $spacing-lg;
   border-top: 1px solid $color-border;
   background-color: $color-surface;
+  color: $color-text-secondary;
+  font-size: 0.9rem;
 
-  &__container {
+  &__content {
+    // UPDATED: Switched to a centered, vertical column layout
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
+    gap: $spacing-lg; // Consistent spacing between social, links, and bottom bar
     width: 100%;
     max-width: $container-max-width;
     margin: 0 auto;
-    flex-wrap: wrap;
-    gap: $spacing-md;
-  }
-  
-  &__left-content {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: $spacing-sm;
   }
 
-  &__text {
-    color: $color-text-secondary;
-    font-size: 0.9rem;
-    line-height: 1.6;
-    margin: 0;
-    text-align: left;
-
-    a {
-      color: $color-text-primary;
-      font-weight: 500;
-      &:hover {
-        color: $color-primary;
-      }
-    }
-  }
-
-  &__legal {
-    color: $color-text-secondary;
-    font-size: 0.8rem;
-    opacity: 0.7;
-    margin: 0;
-    letter-spacing: 0.5px;
-    text-align: left;
-  }
-  
-  &__badge-wrapper {
-    margin-top: $spacing-sm;
-  }
-
-  &__right-content {
-    display: flex;
-    align-items: center;
-    gap: $spacing-xl;
-  }
-
-  &__clock {
-    // --- CHANGED: Now using the CSS variable from layout.tsx ---
-    font-family: var(--font-roboto-mono), monospace;
-    font-size: 1.1rem;
-    color: $color-text-primary;
-    background-color: $color-background;
-    padding: $spacing-sm $spacing-md;
-    border-radius: $border-radius-sm;
-    border: 1px solid $color-border;
-    letter-spacing: 2px;
-  }
-
-  &__socials {
+  &__social {
+    // No changes needed, your original styles are perfect.
     display: flex;
     align-items: center;
     gap: $spacing-lg;
@@ -89,27 +38,74 @@
       }
     }
   }
+  
+  // REMOVED: The old '__legal' wrapper is no longer used.
 
-  @media (max-width: 992px) {
-    &__container {
-      flex-direction: column;
-      align-items: center;
-      gap: $spacing-lg;
-    }
+  // UPDATED: This is now a direct child of '__content'
+  &__links {
+    display: flex;
+    gap: $spacing-md;
+    justify-content: center;
     
-    &__left-content, &__text, &__legal {
-      align-items: center;
-      text-align: center;
-    }
-
-    &__right-content {
-      // --- This now puts the clock below the socials on mobile, which is perfect ---
-      flex-direction: column-reverse;
-      gap: $spacing-lg;
+    a {
+      color: $color-text-secondary;
+      font-size: 0.8rem;
+      text-decoration: none;
+      
+      &:hover {
+        color: $color-text-primary;
+        text-decoration: underline;
+      }
     }
   }
-}
 
-.c-page-container, .c-contact {
-  margin-bottom: $spacing-xxl;
+  // NEW: A dedicated row for the bottom-most content
+  &__bottom-bar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; // Allows content to wrap gracefully on smaller screens
+    gap: $spacing-md;
+    margin-top: $spacing-sm; // Adds a bit of extra space above this bar
+    padding-top: $spacing-md; // A visual separator line
+    border-top: 1px solid $color-border;
+  }
+
+  // NEW: A container for the copyright and registration info
+  &__legal-info {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: $spacing-md;
+    justify-content: center; // Helps when wrapping
+  }
+  
+  &__clock {
+    // Your original styles for the clock are great.
+    font-family: var(--font-roboto-mono), monospace;
+    font-size: 1rem;
+    color: $color-text-primary;
+    background-color: $color-background;
+    padding: $spacing-xs $spacing-sm;
+    border-radius: $border-radius-sm;
+    border: 1px solid $color-border;
+    letter-spacing: 1.5px;
+    flex-shrink: 0; // Prevents the clock from being squished
+  }
+
+  // UPDATED: A simpler, more robust media query for the new structure
+  @media (max-width: 768px) {
+    &__content {
+      // Increase gap on mobile for better readability
+      gap: $spacing-xl;
+    }
+
+    &__bottom-bar {
+      // Stack the legal info and clock vertically on mobile
+      flex-direction: column-reverse; // Puts the clock first, which looks nice
+      justify-content: center;
+      gap: $spacing-md;
+    }
+  }
 }

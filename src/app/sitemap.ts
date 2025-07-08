@@ -2,18 +2,25 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://www.coderon.co.za' // IMPORTANT: Change to your actual domain
+  const baseUrl = 'https://www.coderon.co.za'
+
+  // Use a fixed date for static content that doesn't change often
+  const staticContentDate = '2023-10-26';
+
   return [
-    { url: `${baseUrl}/`, lastModified: new Date() },
-    { url: `${baseUrl}/about`, lastModified: new Date() },
-    { url: `${baseUrl}/services`, lastModified: new Date() },
-    { url: `${baseUrl}/impact`, lastModified: new Date() },
-    { url: `${baseUrl}/contact`, lastModified: new Date() },
-    { url: `${baseUrl}/playroom`, lastModified: new Date() },
-    // Add your playroom demo pages here
-    { url: `${baseUrl}/playroom/sales-dashboard`, lastModified: new Date() },
-    { url: `${baseUrl}/playroom/sentiment-analyzer`, lastModified: new Date() },
-    { url: `${baseUrl}/playroom/fleet-tracker`, lastModified: new Date() },
-    { url: `${baseUrl}/playroom/business-chatbot`, lastModified: new Date() },
+    { url: `${baseUrl}/`, lastModified: staticContentDate },
+    { url: `${baseUrl}/about`, lastModified: staticContentDate },
+    { url: `${baseUrl}/services`, lastModified: staticContentDate },
+    { url: `${baseUrl}/impact`, lastModified: staticContentDate },
+    { url: `${baseUrl}/contact`, lastModified: staticContentDate },
+    { url: `${baseUrl}/playroom`, lastModified: staticContentDate },
+    { url: `${baseUrl}/playroom/sales-dashboard`, lastModified: staticContentDate },
+    { url: `${baseUrl}/playroom/sentiment-analyzer`, lastModified: staticContentDate },
+    { url: `${baseUrl}/playroom/fleet-tracker`, lastModified: staticContentDate },
+    { url: `${baseUrl}/playroom/business-chatbot`, lastModified: staticContentDate },
+    
+    // --- ADDED: The missing legal pages ---
+    { url: `${baseUrl}/privacy-policy`, lastModified: staticContentDate },
+    { url: `${baseUrl}/terms-of-service`, lastModified: staticContentDate },
   ]
 }

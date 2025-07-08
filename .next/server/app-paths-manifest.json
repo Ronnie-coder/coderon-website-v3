@@ -1,0 +1,11 @@
+{
+  "/privacy-policy/page": "app/privacy-policy/page.js",
+  "/page": "app/page.js",
+  "/terms-of-service/page": "app/terms-of-service/page.js",
+  "/contact/page": "app/contact/page.js",
+  "/about/page": "app/about/page.js",
+  "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/services/page": "app/services/page.js",
+  "/impact/page": "app/impact/page.js",
+  "/playroom/page": "app/playroom/page.js"
+}

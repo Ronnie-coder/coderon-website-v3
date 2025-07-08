@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import "@/styles/main.scss";
 import { BackToTopButton } from '@/components/BackToTopButton';
 import GoogleAnalytics from "@/components/GoogleAnalytics";
+import CookieBanner from "@/components/layout/CookieBanner"; 
 
 
 // --- NEW: Configure the fonts ---
@@ -85,6 +86,7 @@ export default function RootLayout({
         <Footer />
         <BackToTopButton />
         <GoogleAnalytics />
+        <CookieBanner />
       </body>
     </html>
   );

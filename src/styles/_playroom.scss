@@ -1,5 +1,6 @@
 // src/styles/_playroom.scss
 
+@use "sass:color";
 @use 'variables' as *;
 // No mixin import needed for this file to work
 
@@ -80,7 +81,7 @@
   &__footer {
     padding: $spacing-md $spacing-lg;
     border-top: 1px solid $color-border;
-    background-color: darken($color-surface, 2%);
+    background-color: color.adjust($color-surface, $lightness: -2%);
   }
   
   &__link {
